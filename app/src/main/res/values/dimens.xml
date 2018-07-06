@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="p10">10dp</dimen>
+    <dimen name="p10">5dp</dimen>
 </resources>
