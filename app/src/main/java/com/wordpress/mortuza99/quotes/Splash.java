@@ -5,7 +5,6 @@ import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -22,7 +21,7 @@ public class Splash extends AppCompatActivity {
         TextView textView = findViewById( R.id.splashText);
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/custom_fonts.ttf");
         textView.setTypeface(typeface);
-/*
+/*// Method One --> Old way
 
         Thread timer = new Thread(){
             public void run(){
@@ -38,7 +37,7 @@ public class Splash extends AppCompatActivity {
         };
         timer.start();
 */
-
+// Method 2
         Timer runsTimerTask = new Timer();
         TimerTask showTimerTask = new TimerTask() {
             @Override
