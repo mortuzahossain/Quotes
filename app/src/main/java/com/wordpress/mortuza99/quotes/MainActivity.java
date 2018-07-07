@@ -12,6 +12,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     private ShakeListener mShaker;
 
+    //    For Static Quotes
     private String[] quot = {
             "If Allah wants to do good to somebody, he afflicts him with trials.",
             "Doctors can treat you, but only ALLAH can heal you",
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final TextView quots = (TextView) findViewById(R.id.quots);
+        final TextView quots = findViewById(R.id.quots);
 
         // Added Custom Font And Seting Initial Text
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/custom_fonts.ttf");
@@ -101,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    // Not to vibrate during resume and pause.
     @Override
     public void onResume()
     {
