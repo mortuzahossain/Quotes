@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.Random;
@@ -83,31 +84,55 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView quots = findViewById(R.id.quots);
+        final FloatingActionButton fab1 = (FloatingActionButton) findViewById(R.id.fab1);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        // For the first time while starting application
 
         // Added Custom Font And Seting Initial Text
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/custom_fonts.ttf");
         quots.setTypeface(typeface);
-        quots.setShadowLayer(5, 2, 2,R.color.black);
+        quots.setShadowLayer(5, 2, 2, R.color.black);
         quots.setText(R.string.initial_text);
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, R.string.initial_text);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+            }
+        });
 
         // Gating the length of the text array
         final int numberOfQuots = quot.length;
         final Random random = new Random();
 
-        final Vibrator vibe = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+        final Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         mShaker = new ShakeListener(this);
-        mShaker.setOnShakeListener(new ShakeListener.OnShakeListener () {
-            public void onShake()
-            {
+        mShaker.setOnShakeListener(new ShakeListener.OnShakeListener() {
+            public void onShake() {
                 vibe.vibrate(100);
                 // Generating Random Number
-                int position = random.nextInt(numberOfQuots - 1);
+                final int position = random.nextInt(numberOfQuots - 1);
                 // Geting the straing for random position and show it in textview
                 quots.setText(quot[position]);
+
+                // If Click on share Buttom
+                fab1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //  Sending By message
+                        Intent sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, quot[position]);
+                        sendIntent.setType("text/plain");
+                        startActivity(sendIntent);
+                    }
+                });
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,18 +145,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
     // Not to vibrate during resume and pause.
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         mShaker.resume();
         super.onResume();
     }
+
     @Override
-    public void onPause()
-    {
+    public void onPause() {
         mShaker.pause();
         super.onPause();
     }
