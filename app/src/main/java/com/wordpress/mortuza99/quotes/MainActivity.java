@@ -6,6 +6,7 @@ import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -101,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
                 quots.setText(quot[position]);
             }
         });
+
+//        android.widget.Toast.makeText(getApplicationContext(),"Test",Toast.LENGTH_LONG).show();
     }
 
     // Not to vibrate during resume and pause.
