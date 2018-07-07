@@ -1,13 +1,20 @@
 package com.wordpress.mortuza99.quotes;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Vibrator;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -103,7 +110,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        android.widget.Toast.makeText(getApplicationContext(),"Test",Toast.LENGTH_LONG).show();
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("*/*");
+                intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(getApplicationContext()
+                        .getApplicationInfo()
+                        .sourceDir)));
+                startActivity(Intent.createChooser(intent, "Share App"));
+            }
+        });
+
     }
 
     // Not to vibrate during resume and pause.

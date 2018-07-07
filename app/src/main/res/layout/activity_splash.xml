@@ -11,7 +11,7 @@
     tools:context=".Splash">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/splashText"
         android:layout_width="match_parent"
         android:textAlignment="center"
         android:textColor="@color/white"

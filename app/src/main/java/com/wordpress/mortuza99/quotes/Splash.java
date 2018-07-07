@@ -1,8 +1,10 @@
 package com.wordpress.mortuza99.quotes;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Timer;
@@ -15,6 +17,11 @@ public class Splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+
+        // Change the font style
+        TextView textView = findViewById( R.id.splashText);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/custom_fonts.ttf");
+        textView.setTypeface(typeface);
 /*
 
         Thread timer = new Thread(){
