@@ -2,6 +2,7 @@ package com.wordpress.mortuza99.quotes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.Random;
@@ -77,6 +79,12 @@ public class MainActivity extends AppCompatActivity {
             "Be somebody in the eyes of ALLAH, even if you are nobody in the eyes of people."
     };
 
+    SharedPreferences sharedPreferences;
+    public static final String SHARED_NAME = "QuotesSharedPreferences";
+
+    boolean VibrationStatus = true;
+    boolean SoundStatus = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,9 +96,18 @@ public class MainActivity extends AppCompatActivity {
         setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),Setting.class));
+                startActivity(new Intent(getApplicationContext(), Setting.class));
             }
         });
+
+        // Extract Data From Shared Preference And Change The Setting
+        sharedPreferences = getSharedPreferences(SHARED_NAME, Context.MODE_PRIVATE);
+        if (sharedPreferences.contains("sound")) {
+            SoundStatus = sharedPreferences.getString("sound", "").equals("soundOn");
+        }
+        if (sharedPreferences.contains("vibration")) {
+            VibrationStatus = sharedPreferences.getString("vibration", "").equals("vibrationOn");
+        }
 
         final TextView quots = findViewById(R.id.quots);
         final FloatingActionButton fab1 = findViewById(R.id.fab1);
@@ -111,10 +128,10 @@ public class MainActivity extends AppCompatActivity {
         mShaker = new ShakeListener(this);
         mShaker.setOnShakeListener(new ShakeListener.OnShakeListener() {
             public void onShake() {
-                vibe.vibrate(100);
-                // Generating Random Number
+
+                if (VibrationStatus) vibe.vibrate(100);
+
                 final int position = random.nextInt(numberOfQuots - 1);
-                // Geting the straing for random position and show it in textview
                 quots.setText(quot[position]);
 
                 // If Click on share Buttom
@@ -158,6 +175,14 @@ public class MainActivity extends AppCompatActivity {
     public void onPause() {
         mShaker.pause();
         super.onPause();
+    }
+
+    // On Back Pressed Refresh the activity
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
     }
 
 }
