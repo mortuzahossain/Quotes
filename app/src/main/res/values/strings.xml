@@ -4,4 +4,7 @@
     <string name="share">Image for looking good</string>
     <string name="just_shake_and_enjoy">Just Shake And Enjoy !!!</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="sound">Sound</string>
+    <string name="setting">Setting</string>
+    <string name="vibration">Vibration</string>
 </resources>

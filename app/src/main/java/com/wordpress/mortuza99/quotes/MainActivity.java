@@ -10,7 +10,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.util.Random;
@@ -83,9 +82,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        // Go to setting Activity
+        FloatingActionButton setting = findViewById(R.id.setting);
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),Setting.class));
+            }
+        });
+
         final TextView quots = findViewById(R.id.quots);
-        final FloatingActionButton fab1 = (FloatingActionButton) findViewById(R.id.fab1);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final FloatingActionButton fab1 = findViewById(R.id.fab1);
+        FloatingActionButton fab = findViewById(R.id.fab);
         // For the first time while starting application
 
         // Added Custom Font And Seting Initial Text
@@ -93,16 +102,6 @@ public class MainActivity extends AppCompatActivity {
         quots.setTypeface(typeface);
         quots.setShadowLayer(5, 2, 2, R.color.black);
         quots.setText(R.string.initial_text);
-        fab1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, R.string.initial_text);
-                sendIntent.setType("text/plain");
-                startActivity(sendIntent);
-            }
-        });
 
         // Gating the length of the text array
         final int numberOfQuots = quot.length;
