@@ -23,7 +23,6 @@ public class Setting extends AppCompatActivity {
         final Switch sound = findViewById(R.id.sound);
         final Switch vibration = findViewById(R.id.vibration);
 
-        // On / Off The switch
         // Change log in shared preference
         sharedPreferences = getSharedPreferences(SHARED_NAME, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();

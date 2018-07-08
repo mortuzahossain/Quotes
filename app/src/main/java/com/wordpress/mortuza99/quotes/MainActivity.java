@@ -19,7 +19,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     private ShakeListener mShaker;
 
-    //    For Static Quotes
+    // TODO : Dynamically get this quotes from database.
     private String[] quot = {
             "If Allah wants to do good to somebody, he afflicts him with trials.",
             "Doctors can treat you, but only ALLAH can heal you.",
@@ -108,6 +108,8 @@ public class MainActivity extends AppCompatActivity {
         if (sharedPreferences.contains("vibration")) {
             VibrationStatus = sharedPreferences.getString("vibration", "").equals("vibrationOn");
         }
+
+        // TODO: Set Background Music
 
         final TextView quots = findViewById(R.id.quots);
         final FloatingActionButton fab1 = findViewById(R.id.fab1);
