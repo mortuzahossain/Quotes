@@ -16,28 +16,11 @@ public class Splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-
         // Change the font style
         TextView textView = findViewById( R.id.splashText);
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/custom_fonts.ttf");
         textView.setTypeface(typeface);
-/*// Method One --> Old way
 
-        Thread timer = new Thread(){
-            public void run(){
-                try{
-                    sleep(5100);
-                }catch(InterruptedException e){
-                    e.printStackTrace();
-                }finally{
-                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                    finish();
-                }
-            }
-        };
-        timer.start();
-*/
-// Method 2
         Timer runsTimerTask = new Timer();
         TimerTask showTimerTask = new TimerTask() {
             @Override
