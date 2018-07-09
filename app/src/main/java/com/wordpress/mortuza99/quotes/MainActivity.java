@@ -42,8 +42,11 @@ public class MainActivity extends AppCompatActivity {
     boolean VibrationStatus = true;
     boolean SoundStatus = true;
 
+    String showText;
+
     // For Sound
     MediaPlayer mediaPlayer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,14 +78,14 @@ public class MainActivity extends AppCompatActivity {
 
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.music);
 
-        if (SoundStatus){
+        if (SoundStatus) {
             mediaPlayer.start();
             mediaPlayer.setLooping(true);
         }
 
         final TextView quots = findViewById(R.id.quots);
-        final FloatingActionButton fab1 = findViewById(R.id.fab1);
         FloatingActionButton fab = findViewById(R.id.fab);
+        final FloatingActionButton fab1 = findViewById(R.id.fab1);
         // For the first time while starting application
 
         // Added Custom Font And Setting Initial Text
@@ -90,9 +93,18 @@ public class MainActivity extends AppCompatActivity {
         quots.setTypeface(typeface);
         quots.setShadowLayer(5, 2, 2, R.color.black);
 
-        if (list.get(0)[0] != "") quots.setText(list.get(0)[0]);
-        else quots.setText(R.string.initial_text);
-
+        showText = list.isEmpty() ? R.string.initial_text + "" : list.get(0)[0];
+        quots.setText(showText);
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, showText);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+            }
+        });
 
         // Gating the length of the text array
         numberOfQuots = list.isEmpty() ? quot.length : list.size();
@@ -106,14 +118,13 @@ public class MainActivity extends AppCompatActivity {
                 if (VibrationStatus) vibe.vibrate(100);
 
                 final int position = random.nextInt(numberOfQuots - 1);
-                final String showText = list.isEmpty() ? quot[position] : list.get(position)[0];
+                showText = list.isEmpty() ? quot[position] : list.get(position)[0];
                 quots.setText(showText);
 
                 // If Click on share Button
                 fab1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //  Sending By message
                         Intent sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);
                         sendIntent.putExtra(Intent.EXTRA_TEXT, showText);
@@ -154,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         mShaker.resume();
         super.onResume();
-//        if (SoundStatus) mediaPlayer.start();
     }
 
     @Override
