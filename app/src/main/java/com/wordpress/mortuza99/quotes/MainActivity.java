@@ -106,7 +106,8 @@ public class MainActivity extends AppCompatActivity {
                 if (VibrationStatus) vibe.vibrate(100);
 
                 final int position = random.nextInt(numberOfQuots - 1);
-                quots.setText(list.isEmpty() ? quot[position] : list.get(position)[0]);
+                final String showText = list.isEmpty() ? quot[position] : list.get(position)[0];
+                quots.setText(showText);
 
                 // If Click on share Button
                 fab1.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                         //  Sending By message
                         Intent sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, quot[position]);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, showText);
                         sendIntent.setType("text/plain");
                         startActivity(sendIntent);
                     }
