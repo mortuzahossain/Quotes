@@ -95,16 +95,6 @@ public class MainActivity extends AppCompatActivity {
 
         showText = list.isEmpty() ? R.string.initial_text + "" : list.get(0)[0];
         quots.setText(showText);
-        fab1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, showText);
-                sendIntent.setType("text/plain");
-                startActivity(sendIntent);
-            }
-        });
 
         // Gating the length of the text array
         numberOfQuots = list.isEmpty() ? quot.length : list.size();
@@ -114,24 +104,21 @@ public class MainActivity extends AppCompatActivity {
         mShaker = new ShakeListener(this);
         mShaker.setOnShakeListener(new ShakeListener.OnShakeListener() {
             public void onShake() {
-
                 if (VibrationStatus) vibe.vibrate(100);
-
                 final int position = random.nextInt(numberOfQuots - 1);
                 showText = list.isEmpty() ? quot[position] : list.get(position)[0];
                 quots.setText(showText);
+            }
+        });
 
-                // If Click on share Button
-                fab1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent sendIntent = new Intent();
-                        sendIntent.setAction(Intent.ACTION_SEND);
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, showText);
-                        sendIntent.setType("text/plain");
-                        startActivity(sendIntent);
-                    }
-                });
+
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent2 = new Intent(Intent.ACTION_SEND);
+                intent2.setType("text/plain");
+                intent2.putExtra(Intent.EXTRA_TEXT, showText);
+                startActivity(Intent.createChooser(intent2, "Share via"));
             }
         });
 

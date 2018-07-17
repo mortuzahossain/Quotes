@@ -29,7 +29,7 @@ public class Splash extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
             }
         };
-        runsTimerTask.schedule(showTimerTask, 5000);
+        runsTimerTask.schedule(showTimerTask, 3000);
 
     }
 
